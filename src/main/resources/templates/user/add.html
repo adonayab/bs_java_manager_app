@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+<form th:action="@{/user/add}" th:object="${user}" method="post" >
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>User Name </label>
+      <input type="text" name="userName" th:field="*{userName}" />
+      <span class="error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Password </label>
+      <input type="password" name="password" th:field="*{password}" />
+      <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Verify </label>
+      <input type="password" name="verify" th:field="*{verifyPassword}"/>
+      <span class="error" th:if="${#fields.hasErrors('verifyPassword')}" th:errors="*{verifyPassword}"></span>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Email </label>
+      <input type="email" name="email" th:field="*{email}" />
+      <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input type="submit" value="Sign Up" />
+    </div>
+  </div>
+</form>
+
+
+</body>
+</html>

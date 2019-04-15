@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container-fluid">
+<header th:replace="fragments :: header"></header>
+
+<!--<h1 th:text="${'Edit... ' + editMessage.title}"></h1>-->
+
+<nav th:replace="fragments :: navigation"></nav>
+
+
+<form method="post" th:object="${message}">
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>From</label>
+      <input
+             th:field="*{author}"
+             th:placeholder="${editMessage.author}"/>
+      <span th:errors="*{author}" class="error"></span>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Title </label>
+      <input
+             th:field="*{title}"
+             th:placeholder="${editMessage.title}" />
+      <span  th:errors="*{title}" class="error"></span>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Message </label>
+      <textarea rows="6"
+                th:field="*{body}"
+                th:placeholder="${editMessage.body}"></textarea>
+      <span  th:errors="*{body}" class="error"></span>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label th:for="type">Category </label>
+      <select name="categoryId" class="custom-select" >
+        <option th:each="category : ${categories}"
+                th:text="${category.name}"
+                th:value="${category.id}"
+                th:selected="${category.name == editMessage.category.name}"></option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input class="btns" type="submit" value="Edit" />
+    </div>
+  </div>
+
+</form>
+
+</body>
+</html>

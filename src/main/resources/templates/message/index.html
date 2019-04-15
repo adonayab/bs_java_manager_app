@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body>
+
+  <header th:replace="fragments :: header"></header>
+
+  <div th:replace="fragments :: notification-tabs"></div>
+
+  <div th:if="${messages}">
+    <div th:replace="fragments :: add-rmv-btns"></div>
+    <div th:replace="fragments :: message"></div>
+  </div>
+
+  <div th:if="${messagesByCategory}">
+    <div th:replace="fragments :: add-rmv-btns"></div>
+    <div th:replace="fragments :: message"></div>
+  </div>
+
+  <div th:replace="fragments :: scripts"></div>
+
+
+</body>
+</html>

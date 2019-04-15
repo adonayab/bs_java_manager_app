@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Title</title>
+  <head th:replace="fragments :: head"></head>
+</head>
+<body class="container-fluid">
+
+  <header th:replace="fragments :: header"></header>
+
+
+
+  <div th:if="${cheeses.size() != 0}">
+    <form method="post">
+
+      <table class="table table-borderless">
+        <tr class="thead-light d-flex">
+          <th class="col-2">Select</th>
+          <th class="col-4">Messages</th>
+        </tr>
+        <tr class="d-flex" th:each="message : ${cheeses}">
+          <td class="col-2">
+            <input name="messageIds"
+                   th:value="${message.id}"
+                   th:id="${message.id}" type="checkbox" />
+          </td>
+          <td class="col-4" th:text="${message.title}"></td>
+        </tr>
+      </table>
+
+      <input type="submit" value="Remove" />
+    </form>
+  </div>
+
+  <div th:replace="fragments :: scripts"></div>
+
+</body>
+</html>

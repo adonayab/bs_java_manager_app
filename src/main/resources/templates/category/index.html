@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container-fluid">
+
+<!--  <h1 th:text="${title}">Default Title</h1>-->
+
+  <nav th:replace="fragments :: navigation"></nav>
+
+  <table class="table table-borderless">
+    <tr class="d-flex" th:each="category : ${categories}">
+      <td class="col-2">
+        <a th:href="@{'/message/index/' + ${category.id}}" th:text="${category.name}"></a>
+      </td>
+    </tr>
+  </table>
+
+<!--  <p><a class="link" th:href="@{/category/add}">Add a Category</a></p>-->
+
+</body>
+</html>

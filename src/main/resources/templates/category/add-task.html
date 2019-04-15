@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container-fluid">
+
+<header th:replace="fragments :: header"></header>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<form method="post" style="max-width:600px;" th:object="${task}">
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label th:for="name">Task </label>
+      <input th:field="*{name}"/>
+      <span th:errors="*{name}" class="error"></span>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label th:for="shift">Shift </label>
+      <select name="shift" class="custom-select" >
+        <option th:each="shift : ${shifts}"
+                th:text="${shift}"
+                th:value="${shift}"></option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input type="submit" value="Add Task" />
+    </div>
+  </div>
+
+</form>
+
+</body>
+</html>

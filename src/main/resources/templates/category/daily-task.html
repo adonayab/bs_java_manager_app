@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container-fluid">
+
+<header th:replace="fragments :: header"></header>
+
+<!--<h1 th:text="${title}">Manager App</h1>-->
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div>
+
+  <table class="table table-borderless">
+    <tr class="thead-light">
+      <nav class="nav">
+        <a class="nav-link" th:href="@{'/message/index/' + ${urgentId}}">Urgent</a>
+        <a class="nav-link" th:href="@{'/message/index/' + ${generalId}}">General</a>
+        <a class="nav-link" th:href="@{/category/daily-task}">Daily Tasks</a>
+      </nav>
+    </tr>
+  </table>
+
+  <table class="table table-borderless">
+    <tr class="thead-light">
+      <nav class="nav">
+        <a class="material-icons nav-link" th:href="@{/category/add-task}">note_add</a>
+        <a class="material-icons nav-link" th:href="@{/category/remove}">remove</a>
+      </nav>
+    </tr>
+  </table>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm">
+        <table class="table">
+          <tr class="thead-dark">
+            <th>Mornings</th>
+          </tr>
+          <tr th:each="task : ${mornings}">
+            <td th:text="${task.name}"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-sm">
+        <table class="table">
+          <tr class="thead-dark">
+            <th>Afternoons</th>
+          </tr>
+          <tr th:each="task : ${afternoons}">
+            <td th:text="${task.name}"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-sm">
+        <table class="table">
+          <tr class="thead-dark">
+            <th>Evenings</th>
+          </tr>
+          <tr th:each="task : ${evenings}">
+            <td th:text="${task.name}"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+</body>
+</html>
