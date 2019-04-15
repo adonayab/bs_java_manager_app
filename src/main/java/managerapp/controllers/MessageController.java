@@ -67,20 +67,10 @@ public class MessageController {
         return "redirect:";
     }
 
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveCheeseForm(Model model){
-        model.addAttribute("title", "Remove Message");
-        model.addAttribute("cheeses", messageDao.findAll());
-        return "message/remove";
-    }
-
-    @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam int[] messageIds) {
-
-        for (int messageId: messageIds) {
-            messageDao.delete(messageId);
-        }
-        return "redirect:";
+    @RequestMapping(value = "remove/{messageId}", method = RequestMethod.POST)
+    public String processRemoveCheeseForm(@PathVariable int messageId) {
+       messageDao.delete(messageId);
+       return "redirect:/message";
     }
 
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.GET)
@@ -90,7 +80,7 @@ public class MessageController {
         model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("editMessage", messageDao.findOne(cheeseId));
 
-        return "message/edit";
+        return "redirect:/message";
     }
 
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.POST)

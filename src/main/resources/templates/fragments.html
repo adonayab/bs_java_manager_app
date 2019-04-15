@@ -58,14 +58,11 @@
   </div>
 
 <!--Add and remove buttons-->
-  <div th:fragment="add-rmv-btns">
+  <div th:fragment="add-btn">
     <section class="container ">
       <div class="row">
         <div class="col m2 l1">
-          <button class="btn_c"><a class="white-text text-bold" th:href="@{/message/add}">ADD</a></button>
-        </div>
-        <div class="col m2 l1">
-          <button class="btn_c"><a class="white-text text-bold" th:href="@{/message/remove}">RMV</a></button>
+          <a class="btn black white-text" th:href="@{/message/add}">ADD</a>
         </div>
       </div>
     </section>
@@ -86,9 +83,12 @@
               <a href="" class="orange-text accent-4-text" th:text="${message.author}"></a>
               <span th:text="${message.dateUpdated}"></span>
               <a href="" class="red-text" th:text="${message.category.name}"></a>
-              <a th:href="@{'/message/edit/' + ${message.id}}">
-                <i class="edit material-icons">edit</i>
-              </a>
+              <span class="remove">
+                <a class="red-text edit_rmv_msg" th:href="@{'/message/edit/' + ${message.id}}">Edit</a>
+                <form method="post" th:action="@{'/message/remove/' + ${message.id}}">
+                  <input type="submit" value="REMOVE"/>
+                </form>
+              </span>
             </div>
           </div>
         </div>

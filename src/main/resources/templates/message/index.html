@@ -9,12 +9,12 @@
   <div th:replace="fragments :: notification-tabs"></div>
 
   <div th:if="${messages}">
-    <div th:replace="fragments :: add-rmv-btns"></div>
+    <div th:replace="fragments :: add-btn"></div>
     <div th:replace="fragments :: message"></div>
   </div>
 
   <div th:if="${messagesByCategory}">
-    <div th:replace="fragments :: add-rmv-btns"></div>
+    <div th:replace="fragments :: add-btn"></div>
     <div th:replace="fragments :: message"></div>
   </div>
 

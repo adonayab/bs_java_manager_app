@@ -3,34 +3,21 @@
   font-style: italic;
 }
 
-.btn_c {
-  background-color: black;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 20px;
-  width: 90px 40px;
-}
-
-.btn_c:hover {
-  background-color: rgb(75, 74, 71);
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 20px;
-  width: 90px 40px;
-}
-
-.edit {
+.edit_rmv_msg {
   color: red;
   text-decoration: none;
   float: right;
+}
+
+input[type=submit]{
+  color: red;
+  text-decoration: none;
+  float: right;
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .content-section {
