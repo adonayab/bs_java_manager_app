@@ -91,7 +91,9 @@
             <div class="card-action">
               <span>From | </span>
               <a href="" class="orange-text accent-4-text" th:text="${message.author}"></a>
-              <span th:text="${message.dateUpdated}"></span>
+              <span>To | </span>
+              <a href="" class="blue-text accent-4-text" th:text="${message.toShift}"></a>
+              <a class="black-text" th:text="${message.dateUpdated}"></a>
               <a href="" class="red-text" th:text="${message.category.name}"></a>
               <a class="btn-small deep-orange darken-4 white-text edit_msg" th:href="@{'/message/edit/' + ${message.id}}">Edit</a>
             </div>

@@ -20,6 +20,8 @@ import java.util.ArrayList;
 @RequestMapping("message")
 public class MessageController {
 
+    private static String[] shifts = {"All Shifts", "Morning", "Afternoon", "Evening" };
+
     @Autowired
     private MessageDao messageDao;
 
@@ -86,16 +88,20 @@ public class MessageController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddMessageForm(Model model, Message message){
         model.addAttribute("categories", categoryDao.findAll());
+        model.addAttribute("shifts", shifts);
         return "message/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddMessageForm(Model model, @ModelAttribute @Valid Message newMessage, Errors errors, @RequestParam int categoryId){
+    public String processAddMessageForm(Model model, @ModelAttribute @Valid Message newMessage,
+                                        Errors errors,
+                                        @RequestParam int categoryId){
 
         model.addAttribute("title", "Add Message");
 
         if (errors.hasErrors()) {
             model.addAttribute("categories", categoryDao.findAll());
+            model.addAttribute("shifts", shifts);
             return "message/add";
         }
 
@@ -131,6 +137,8 @@ public class MessageController {
 
         model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("message", messageDao.findOne(messageId));
+        model.addAttribute("shifts", shifts);
+
 
         return "message/edit";
     }
@@ -143,6 +151,7 @@ public class MessageController {
         if (errors.hasErrors()) {
             model.addAttribute("message", messageDao.findOne(messageId));
             model.addAttribute("categories", categoryDao.findAll());
+            model.addAttribute("shifts", shifts);
             return "message/edit";
         }
 
@@ -151,6 +160,7 @@ public class MessageController {
         workMessage.setBody(message.getBody());
         workMessage.setAuthor(message.getAuthor());
         workMessage.setCategory(categoryDao.findOne(categoryId));
+        workMessage.setToShift(message.getToShift());
         workMessage.setDateUpdated(LocalDateTime.now());
         workMessage.setMarkDone(false);
 
