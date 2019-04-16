@@ -30,6 +30,8 @@ public class Message {
 
     private LocalDateTime dateUpdated;
 
+    private boolean markDone;
+
     public Message(String author, String title, String body) {
         this.author = author;
         this.title = title;
@@ -71,11 +73,16 @@ public class Message {
 
     public String getDateUpdated() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a");
-        String formatedDate = dateUpdated.format(formatter);
-        return formatedDate;
+        return dateUpdated.format(formatter);
     }
     public void setDateUpdated(LocalDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
 
+    public boolean isMarkDone() {
+        return markDone;
+    }
+    public void setMarkDone(boolean markDone) {
+        this.markDone = markDone;
+    }
 }

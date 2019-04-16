@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+  <body>
+
+    <header th:replace="fragments :: header"></header>
+
+    <div th:replace="fragments :: notification-tabs"></div>
+
+    <div th:if="${messages}">
+
+      <div th:fragment="message">
+        <div class="container ">
+          <div class="row" th:each="message : ${messages}">
+            <div class="col s12 m12 l12">
+              <div class="card  grey lighten-4 hoverable">
+                <div class="card-content black-text">
+              <span>
+                <form method="post" th:action="@{'/message/restore/' + ${message.id}}">
+                  <input class="btn green darken-2 white-text" type="submit" value="UnMark Completed" />
+                </form>
+              </span>
+                  <span class="card-title  teal-text darken-3" th:text="${message.title}"></span>
+                  <p class = "flow-text" th:text="${message.body}"></p>
+                </div>
+                <div class="card-action">
+                  <span>From | </span>
+                  <a href="" class="orange-text accent-4-text" th:text="${message.author}"></a>
+                  <span th:text="${message.dateUpdated}"></span>
+                  <a href="" class="red-text" th:text="${message.category.name}"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div th:replace="fragments :: scripts"></div>
+
+
+  </body>
+</html>
