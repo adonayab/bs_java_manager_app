@@ -45,13 +45,13 @@ public class MessageController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddCheeseForm(Model model, Message message){
+    public String displayAddMessageForm(Model model, Message message){
         model.addAttribute("categories", categoryDao.findAll());
         return "message/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(Model model, @ModelAttribute @Valid Message newMessage, Errors errors, @RequestParam int categoryId){
+    public String processAddMessageForm(Model model, @ModelAttribute @Valid Message newMessage, Errors errors, @RequestParam int categoryId){
 
         model.addAttribute("title", "Add Message");
 
@@ -68,36 +68,36 @@ public class MessageController {
     }
 
     @RequestMapping(value = "remove/{messageId}", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@PathVariable int messageId) {
+    public String processRemoveMessageForm(@PathVariable int messageId) {
        messageDao.delete(messageId);
        return "redirect:/message";
     }
 
-    @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.GET)
-    public String displayEditForm(@PathVariable int cheeseId, Message message, Model model) {
+    @RequestMapping(value = "edit/{messageId}", method = RequestMethod.GET)
+    public String displayEditForm(@PathVariable int messageId, Model model) {
 
-        model.addAttribute("title", "Edit Message");
+
         model.addAttribute("categories", categoryDao.findAll());
-        model.addAttribute("editMessage", messageDao.findOne(cheeseId));
+        model.addAttribute("message", messageDao.findOne(messageId));
 
-        return "redirect:/message";
+        return "message/edit";
     }
 
-    @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.POST)
-    public String processEditForm(@PathVariable int cheeseId,
-                                  @Valid Message editMessage, Errors errors, Model model,
+    @RequestMapping(value = "edit/{messageId}", method = RequestMethod.POST)
+    public String processEditForm(@PathVariable int messageId,
+                                  @Valid Message message, Errors errors, Model model,
                                   @RequestParam int categoryId ) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("editMessage", messageDao.findOne(cheeseId));
+            model.addAttribute("message", messageDao.findOne(messageId));
             model.addAttribute("categories", categoryDao.findAll());
             return "message/edit";
         }
 
-        Message workMessage = messageDao.findOne(cheeseId);
-        workMessage.setTitle(editMessage.getTitle());
-        workMessage.setBody(editMessage.getBody());
-        workMessage.setAuthor(editMessage.getAuthor());
+        Message workMessage = messageDao.findOne(messageId);
+        workMessage.setTitle(message.getTitle());
+        workMessage.setBody(message.getBody());
+        workMessage.setAuthor(message.getAuthor());
         workMessage.setCategory(categoryDao.findOne(categoryId));
         workMessage.setDateUpdated(LocalDateTime.now());
 

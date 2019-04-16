@@ -1,66 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head th:replace="fragments :: head"></head>
 
 <body class="container-fluid">
-<header th:replace="fragments :: header"></header>
+  <header th:replace="fragments :: header"></header>
 
-<!--<h1 th:text="${'Edit... ' + editMessage.title}"></h1>-->
-
-<nav th:replace="fragments :: navigation"></nav>
+  <nav th:replace="fragments :: navigation"></nav>
 
 
-<form method="post" th:object="${message}">
+  <form method="post" th:object="${message}">
 
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>From</label>
-      <input
-             th:field="*{author}"
-             th:placeholder="${editMessage.author}"/>
-      <span th:errors="*{author}" class="error"></span>
+    <div class="container">
+
+      <div class="row">
+        <div class="input-field col s12 m6 l6">
+          <input type="text" id="author"
+                 th:field="*{author}"
+                 th:placeholder="${message.author}" />
+          <label for="author">From</label>
+        </div>
+        <span th:errors="*{author}" class="error"></span>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6 l6">
+          <input type="text"
+                 th:field="*{title}"
+                 th:placeholder="${message.title}" />
+          <label>Title </label>
+        </div>
+        <span th:errors="*{title}" class="error"></span>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m8 l8">
+          <textarea class="materialize-textarea" rows="6"
+                    th:field="*{body}"
+                    th:placeholder="${message.body}"></textarea>
+          <label>Message </label>
+        </div>
+        <span th:errors="*{body}" class="error"></span>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m6 l6">
+          <p th:for="category">Category</p>
+          <select name="categoryId" class="select browser-default">
+            <option th:each="category : ${categories}"
+                    th:text="${category.name}"
+                    th:value="${category.id}"
+                    th:selected="${category.name == message.category.name}"></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <input class="btn deep-orange darken-4 white-text" type="submit" value="EDIT" />
+        </div>
+      </div>
+
     </div>
-  </div>
+  </form>
 
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Title </label>
-      <input
-             th:field="*{title}"
-             th:placeholder="${editMessage.title}" />
-      <span  th:errors="*{title}" class="error"></span>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Message </label>
-      <textarea rows="6"
-                th:field="*{body}"
-                th:placeholder="${editMessage.body}"></textarea>
-      <span  th:errors="*{body}" class="error"></span>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label th:for="type">Category </label>
-      <select name="categoryId" class="custom-select" >
-        <option th:each="category : ${categories}"
-                th:text="${category.name}"
-                th:value="${category.id}"
-                th:selected="${category.name == editMessage.category.name}"></option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <input class="btns" type="submit" value="Edit" />
-    </div>
-  </div>
-
-</form>
+  <div th:replace="fragments :: scripts"></div>
 
 </body>
+
 </html>
