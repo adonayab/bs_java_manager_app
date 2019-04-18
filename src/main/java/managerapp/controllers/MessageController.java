@@ -116,7 +116,7 @@ public class MessageController {
     }
 
     @RequestMapping(value = "remove/{messageId}", method = RequestMethod.POST)
-    public String processRemoveMessageForm(@PathVariable int messageId) {
+    public String processRemoveMessage(@PathVariable int messageId) {
 
         Message message = messageDao.findOne(messageId);
         message.setMarkDone(true);
@@ -125,11 +125,17 @@ public class MessageController {
     }
 
     @RequestMapping(value = "restore/{messageId}", method = RequestMethod.POST)
-    public String processRestoreMessageForm(@PathVariable int messageId) {
+    public String processRestoreMessage(@PathVariable int messageId) {
 
         Message message = messageDao.findOne(messageId);
         message.setMarkDone(false);
         messageDao.save(message);
+        return "redirect:/message/completed";
+    }
+
+    @RequestMapping(value = "delete/{messageId}", method = RequestMethod.POST)
+    public String processDeleteMessage(@PathVariable int messageId) {
+        messageDao.delete(messageId);
         return "redirect:/message/completed";
     }
 

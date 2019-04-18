@@ -101,7 +101,7 @@ public class CategoryController {
         model.addAttribute("generalId", generalId);
         model.addAttribute("dailyTasksId", dailyTasksId);
 
-        Iterable<Message> dailyTasks = categoryDao.findOne(3).getMessages();
+        Iterable<Message> dailyTasks = categoryDao.findOne(dailyTasksId).getMessages();
         model.addAttribute("dailyTasks", dailyTasks);
         return "category/daily-task";
     }

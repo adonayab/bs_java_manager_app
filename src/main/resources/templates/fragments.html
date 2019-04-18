@@ -64,7 +64,7 @@
   <div th:fragment="add-btn">
     <section class="container add-btn">
       <div class="row">
-        <div class="col s8 m3 l3">
+        <div class="col s12">
           <a class="btn black white-text" th:href="@{/message/add}">
             ADD<i class="material-icons right">note_add</i>
           </a>
@@ -85,10 +85,10 @@
           <div class="card  grey lighten-4 hoverable">
             <div class="card-content black-text">
               <span>
-                <form method="post" th:action="@{'/message/remove/' + ${message.id}}">
-                  <input class="btn light-green lighten-2 black-text" type="submit" value="Mark Completed" />
-                </form>
-              </span>
+                    <form method="post" th:action="@{'/message/remove/' + ${message.id}}">
+                      <input class="btn-small light-green lighten-2 black-text" type="submit" value="Mark Completed" />
+                    </form>
+                  </span>
               <span class="card-title  teal-text darken-3" th:text="${message.title}"></span>
               <p class = "flow-text" th:text="${message.body}"></p>
             </div>
@@ -99,7 +99,7 @@
               <a href="" class="blue-text accent-4-text" th:text="${message.shift}"></a>
               <a class="black-text" th:text="${message.dateUpdated}"></a>
               <a href="" class="red-text" th:text="${message.category.name}"></a>
-              <a class="btn-small deep-orange darken-4 white-text edit_msg" th:href="@{'/message/edit/' + ${message.id}}">Edit</a>
+              <a class="btn-small red lighten-2 white-text edit_msg" th:href="@{'/message/edit/' + ${message.id}}">Edit</a>
             </div>
           </div>
         </div>
