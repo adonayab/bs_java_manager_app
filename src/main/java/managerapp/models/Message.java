@@ -28,17 +28,17 @@ public class Message {
     @ManyToOne
     private Category category;
 
-    private String toShift;
+    private String shift;
 
     private LocalDateTime dateUpdated;
 
     private boolean markDone;
 
-    public Message(String author, String title, String body, String toShift) {
+    public Message(String author, String title, String body, String shift) {
         this.author = author;
         this.title = title;
         this.body = body;
-        this.toShift = toShift;
+        this.shift = shift;
     }
     public Message() { }
 
@@ -74,11 +74,11 @@ public class Message {
         this.category = category;
     }
 
-    public String getToShift() {
-        return toShift;
+    public String getShift() {
+        return shift;
     }
-    public void setToShift(String toShift) {
-        this.toShift = toShift;
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 
     public String getDateUpdated() {

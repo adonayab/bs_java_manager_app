@@ -23,12 +23,12 @@
           <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down">
-          <li><a th:href="@{/message}">Notification</a></li>
+          <li><a th:href="@{/message}">All Notification</a></li>
           <li><a th:href="@{/category}">Schedule</a></li>
           <li><a th:href="@{/menu}">Grill</a></li>
         </ul>
         <ul class="sidenav grey lighten-2" id="mobile-menu">
-          <li><a th:href="@{/message}">Notification</a></li>
+          <li><a th:href="@{/message}">All Notification</a></li>
           <li><a th:href="@{/category}">Schedule</a></li>
           <li><a th:href="@{/menu}">Grill</a></li>
         </ul>
@@ -38,21 +38,21 @@
 
 <!--Tabs of the Notification section of the app-->
   <div th:fragment="notification-tabs">
-    <section class="container ">
+    <section class="container">
       <div class="row">
         <div class="col s12">
           <ul class="tabs">
             <li class="tab ">
-              <a class="red-text"  th:href="@{'/message/index/' + ${urgentId}}">Urgent</a>
+              <a class="deep-orange lighten-2 black-text"  th:href="@{'/category/index/' + ${urgentId}}">Urgent</a>
             </li>
             <li class="tab ">
-              <a class="blue-text" th:href="@{'/message/index/' + ${generalId}}">General</a>
+              <a class="teal lighten-4 lighten-4 black-text" th:href="@{'/category/index/' + ${generalId}}">General</a>
             </li>
             <li class="tab ">
-              <a  class="black-text" th:href="@{/message/completed}">Completed</a>
+              <a  class="light-green lighten-2 black-text" th:href="@{/message/completed}">Completed</a>
             </li>
             <li class="tab ">
-              <a class="blue-text" th:href="@{'/message/index/' + ${dailyTasksId}}">Daily Tasks</a>
+              <a class="brown lighten-3 black-text" th:href="@{/category/daily-task}">Daily Tasks</a>
             </li>
           </ul>
         </div>
@@ -62,13 +62,17 @@
 
 <!--Add button-->
   <div th:fragment="add-btn">
-    <section class="container ">
+    <section class="container add-btn">
       <div class="row">
-        <div class="col m2 l1">
-          <a class="btn indigo darken-4 white-text" th:href="@{/message/add}">
-            <i class="material-icons left">note_add</i>NOTE
+        <div class="col s8 m3 l3">
+          <a class="btn black white-text" th:href="@{/message/add}">
+            ADD<i class="material-icons right">note_add</i>
           </a>
         </div>
+<!--        <div class="col s8 m3 l3">-->
+<!--          <a class="btn black white-text" th:href="@{/category/add}">Add Cate-->
+<!--          </a>-->
+<!--        </div>-->
       </div>
     </section>
   </div>
@@ -82,7 +86,7 @@
             <div class="card-content black-text">
               <span>
                 <form method="post" th:action="@{'/message/remove/' + ${message.id}}">
-                  <input class="btn green darken-2 white-text" type="submit" value="Mark Completed" />
+                  <input class="btn light-green lighten-2 black-text" type="submit" value="Mark Completed" />
                 </form>
               </span>
               <span class="card-title  teal-text darken-3" th:text="${message.title}"></span>
@@ -92,7 +96,7 @@
               <span>From | </span>
               <a href="" class="orange-text accent-4-text" th:text="${message.author}"></a>
               <span>To | </span>
-              <a href="" class="blue-text accent-4-text" th:text="${message.toShift}"></a>
+              <a href="" class="blue-text accent-4-text" th:text="${message.shift}"></a>
               <a class="black-text" th:text="${message.dateUpdated}"></a>
               <a href="" class="red-text" th:text="${message.category.name}"></a>
               <a class="btn-small deep-orange darken-4 white-text edit_msg" th:href="@{'/message/edit/' + ${message.id}}">Edit</a>

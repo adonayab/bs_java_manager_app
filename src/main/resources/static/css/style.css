@@ -55,3 +55,5 @@ form { padding: 20px; }
   border-left: none;
   border-bottom: 1px solid rgb(141, 140, 140);
 }
+
+.add-btn { padding: 10px; }

@@ -1,78 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head th:replace="fragments :: head"></head>
 
-<body class="container-fluid">
+<body>
 
-<header th:replace="fragments :: header"></header>
+  <header th:replace="fragments :: header"></header>
+  <div th:replace="fragments :: notification-tabs"></div>
+  <div th:replace="fragments :: add-btn"></div>
 
-<!--<h1 th:text="${title}">Manager App</h1>-->
-
-<nav th:replace="fragments :: navigation"></nav>
-
-<div>
-
-  <table class="table table-borderless">
-    <tr class="thead-light">
-      <nav class="nav">
-        <a class="nav-link" th:href="@{'/message/index/' + ${urgentId}}">Urgent</a>
-        <a class="nav-link" th:href="@{'/message/index/' + ${generalId}}">General</a>
-        <a class="nav-link" th:href="@{/category/daily-task}">Daily Tasks</a>
-      </nav>
-    </tr>
-  </table>
-
-  <table class="table table-borderless">
-    <tr class="thead-light">
-      <nav class="nav">
-        <a class="material-icons nav-link" th:href="@{/category/add-task}">note_add</a>
-        <a class="material-icons nav-link" th:href="@{/category/remove}">remove</a>
-      </nav>
-    </tr>
-  </table>
-
-  <div class="container-fluid">
+  <div class="container">
 
     <div class="row">
-      <div class="col-sm">
-        <table class="table">
-          <tr class="thead-dark">
-            <th>Mornings</th>
+
+      <div class="col s12 m4 l4">
+        <div>
+          <table>
+            <tr>
+              <th class="red lighten-4">Mornings</th>
+            </tr>
+            <div class="table" th:each="task : ${dailyTasks}">
+              <tr th:if="${ #strings.containsIgnoreCase(task.shift,'morning') }">
+                <td th:text="${task.body}"></td>
+              </tr>
+            </div>
+          </table>
+        </div>
+      </div>
+
+      <div class="col s12 m4 l4">
+        <table>
+          <tr>
+            <th class="deep-purple lighten-4">Afternoons</th>
           </tr>
-          <tr th:each="task : ${mornings}">
-            <td th:text="${task.name}"></td>
-          </tr>
+          <div class="table" th:each="task : ${dailyTasks}">
+            <tr th:if="${ #strings.containsIgnoreCase(task.shift,'afternoon') }">
+              <td th:text="${task.body}"></td>
+            </tr>
+          </div>
         </table>
       </div>
 
-      <div class="col-sm">
-        <table class="table">
-          <tr class="thead-dark">
-            <th>Afternoons</th>
+      <div class="col s12 m4 l4">
+        <table>
+          <tr>
+            <th class="grey lighten-2">Evenings</th>
           </tr>
-          <tr th:each="task : ${afternoons}">
-            <td th:text="${task.name}"></td>
-          </tr>
+          <div class="table" th:each="task : ${dailyTasks}">
+            <tr th:if="${ #strings.containsIgnoreCase(task.shift,'evening') }">
+              <td th:text="${task.body}"></td>
+            </tr>
+          </div>
         </table>
       </div>
 
-      <div class="col-sm">
-        <table class="table">
-          <tr class="thead-dark">
-            <th>Evenings</th>
-          </tr>
-          <tr th:each="task : ${evenings}">
-            <td th:text="${task.name}"></td>
-          </tr>
-        </table>
-      </div>
     </div>
+
   </div>
 
+  <div th:replace="fragments :: scripts"></div>
 
-
-
-</div>
 
 </body>
+
 </html>

@@ -5,7 +5,6 @@ import managerapp.models.Category;
 import managerapp.models.Message;
 import managerapp.models.data.CategoryDao;
 import managerapp.models.data.MessageDao;
-import managerapp.models.data.MenuDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +27,6 @@ public class MessageController {
     @Autowired
     private CategoryDao categoryDao;
 
-    @Autowired
-    private MenuDao menuDao;
-
     @RequestMapping(value = "")
     public String index(Model model) {
 
@@ -38,7 +34,9 @@ public class MessageController {
         ArrayList<Message> notCompleted = new ArrayList<>();
         for (Message message: messages) {
             if (!message.isMarkDone()) {
-                notCompleted.add(message);
+                if (! message.getCategory().getName().equals("Daily Tasks")) {
+                    notCompleted.add(message);
+                }
             }
         }
         model.addAttribute("messages", notCompleted);
@@ -108,7 +106,11 @@ public class MessageController {
         Category cat = categoryDao.findOne(categoryId);
         newMessage.setCategory(cat);
         newMessage.setDateUpdated(LocalDateTime.now());
-        newMessage.setMarkDone(false);
+        if (cat.getName().equals("Daily Task")) {
+            newMessage.setMarkDone(true);
+        } else {
+            newMessage.setMarkDone(false);
+        }
         messageDao.save(newMessage);
         return "redirect:";
     }
@@ -160,40 +162,13 @@ public class MessageController {
         workMessage.setBody(message.getBody());
         workMessage.setAuthor(message.getAuthor());
         workMessage.setCategory(categoryDao.findOne(categoryId));
-        workMessage.setToShift(message.getToShift());
+        workMessage.setShift(message.getShift());
         workMessage.setDateUpdated(LocalDateTime.now());
         workMessage.setMarkDone(false);
 
         messageDao.save(workMessage);
 
         return "redirect:/message";
-    }
-
-    @RequestMapping(value = "/index/{id}")
-    public String category(Model model, @PathVariable int id) {
-
-        Category category = categoryDao.findOne(id);
-
-        Iterable<Message> messages = category.getMessages();
-        ArrayList<Message> notCompleted = new ArrayList<>();
-        for (Message message: messages) {
-            if (!message.isMarkDone()) {
-                notCompleted.add(message);
-            }
-        }
-        model.addAttribute("messages", notCompleted);
-
-        int urgentId = 0;
-        int generalId = 0;
-        Iterable<Category> cats = categoryDao.findAll();
-        for (Category cat: cats){
-            if (cat.getName().equals("Urgent")) { urgentId = cat.getId(); }
-            if (cat.getName().equals("General")) { generalId = cat.getId();}
-        }
-        model.addAttribute("urgentId", urgentId);
-        model.addAttribute("generalId", generalId);
-
-        return "message/index";
     }
 
 }

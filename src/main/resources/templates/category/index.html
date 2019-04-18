@@ -2,21 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container-fluid">
+<body>
 
-<!--  <h1 th:text="${title}">Default Title</h1>-->
 
-  <nav th:replace="fragments :: navigation"></nav>
+  <header th:replace="fragments :: header"></header>
 
-  <table class="table table-borderless">
-    <tr class="d-flex" th:each="category : ${categories}">
-      <td class="col-2">
-        <a th:href="@{'/message/index/' + ${category.id}}" th:text="${category.name}"></a>
-      </td>
-    </tr>
-  </table>
+  <div th:replace="fragments :: notification-tabs"></div>
+  <div th:replace="fragments :: add-btn"></div>
+  <div th:replace="fragments :: message"></div>
 
-<!--  <p><a class="link" th:href="@{/category/add}">Add a Category</a></p>-->
+  <div th:replace="fragments :: scripts"></div>
 
 </body>
 </html>

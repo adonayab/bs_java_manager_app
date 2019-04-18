@@ -2,28 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container-fluid">
-<h1 th:text="${title}">Default Title</h1>
+<body >
 
-<nav th:replace="fragments :: navigation"></nav>
+  <header th:replace="fragments :: header"></header>
 
-<form method="post" style="max-width:600px;" th:object="${category}">
+  <form method="post" style="max-width:600px;" th:object="${category}">
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label th:for="name">Category Name </label>
-            <input th:field="*{name}"/>
-            <span th:errors="*{name}" class="error"></span>
+    <div class="container">
+
+      <div class="row">
+        <div class="input-field col s12 m8 l10">
+          <input type="text" th:field="*{name}" />
+          <label th:for="name">Category Name </label>
         </div>
+        <span th:errors="*{name}" class="error"></span>
+      </div>
+
+      <div class="row">
+        <div class="input-field center col s8 m8 l8">
+          <input class="btn black white-text" type="submit" value="Add Category" />
+        </div>
+      </div>
+
     </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <input type="submit" value="Add Category" />
-        </div>
-    </div>
-
-</form>
-
+  </form>
+  <div th:replace="fragments :: scripts"></div>
 </body>
 </html>

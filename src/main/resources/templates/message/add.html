@@ -45,8 +45,8 @@
 
       <div class="row">
         <div class="col s12 m6 l6">
-          <p th:for="shift">To</p>
-          <select th:field="*{toShift}" class="select browser-default">
+          <p th:for="shift">Shift</p>
+          <select th:field="*{shift}" class="select browser-default">
             <option th:each="shift : ${shifts}"
                     th:text="${shift}"
                     th:value="${shift}"></option>
