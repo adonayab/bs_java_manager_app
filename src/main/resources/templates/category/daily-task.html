@@ -7,9 +7,23 @@
 
   <header th:replace="fragments :: header"></header>
   <div th:replace="fragments :: notification-tabs"></div>
-  <div th:replace="fragments :: add-btn"></div>
 
-  <div class="container">
+  <section class="container add-btn">
+    <div class="row">
+      <div class="col s12 m2">
+        <a class="btn black white-text" th:href="@{/message/add}">
+          ADD<i class="material-icons right">check</i>
+        </a>
+      </div>
+      <div class="col s12 m3">
+        <a class="btn red darken-1 white-text" th:href="@{/category/remove-task}">
+          remove<i class="material-icons right">remove</i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-fluid">
 
     <div class="row">
 

@@ -69,10 +69,6 @@
             ADD<i class="material-icons right">note_add</i>
           </a>
         </div>
-<!--        <div class="col s8 m3 l3">-->
-<!--          <a class="btn black white-text" th:href="@{/category/add}">Add Cate-->
-<!--          </a>-->
-<!--        </div>-->
       </div>
     </section>
   </div>
@@ -85,10 +81,10 @@
           <div class="card  grey lighten-4 hoverable">
             <div class="card-content black-text">
               <span>
-                    <form method="post" th:action="@{'/message/remove/' + ${message.id}}">
-                      <input class="btn-small light-green lighten-2 black-text" type="submit" value="Mark Completed" />
-                    </form>
-                  </span>
+                <form method="post" th:action="@{'/message/remove/' + ${message.id}}">
+                  <input class="btn-small light-green lighten-2 black-text right" type="submit" value="Mark Completed" />
+                </form>
+              </span>
               <span class="card-title  teal-text darken-3" th:text="${message.title}"></span>
               <p class = "flow-text" th:text="${message.body}"></p>
             </div>

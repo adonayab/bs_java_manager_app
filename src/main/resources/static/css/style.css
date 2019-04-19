@@ -9,17 +9,6 @@
   float: right;
 }
 
-input[type=submit]{
-  color: red;
-  text-decoration: none;
-  float: right;
-  background-color: transparent;
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
 .content-section {
   background: #fdfcfc;
   padding: 10px 20px;
@@ -57,3 +46,17 @@ form { padding: 20px; }
 }
 
 .add-btn { padding: 10px; }
+
+/*
+input[type=submit]{
+  color: red;
+  text-decoration: none;
+  float: right;
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+*/
+

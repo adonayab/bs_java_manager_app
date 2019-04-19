@@ -3,6 +3,7 @@ package managerapp.controllers;
 import managerapp.models.Category;
 import managerapp.models.Message;
 import managerapp.models.data.CategoryDao;
+import managerapp.models.data.MessageDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ public class CategoryController {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private MessageDao messageDao;
 
 
     @RequestMapping(value = "")
@@ -106,13 +110,38 @@ public class CategoryController {
         return "category/daily-task";
     }
 
-    @RequestMapping(value = "add-task", method = RequestMethod.GET)
-    public String addTask(Model model) {
-        return "category/add-task";
+    @RequestMapping(value = "remove-task", method = RequestMethod.GET)
+    public String deleteTask(Model model) {
+
+        int urgentId = 0;
+        int generalId = 0;
+        int dailyTasksId = 0;
+        Iterable<Category> cats = categoryDao.findAll();
+        for (Category cat : cats) {
+            if (cat.getName().equals("Urgent")) {
+                urgentId = cat.getId();
+            }
+            if (cat.getName().equals("General")) {
+                generalId = cat.getId();
+            }
+            if (cat.getName().equals("Daily Tasks")) {
+                dailyTasksId = cat.getId();
+            }
+        }
+        model.addAttribute("urgentId", urgentId);
+        model.addAttribute("generalId", generalId);
+        model.addAttribute("dailyTasksId", dailyTasksId);
+
+        Iterable<Message> dailyTasks = categoryDao.findOne(dailyTasksId).getMessages();
+        model.addAttribute("dailyTasks", dailyTasks);
+        return "category/remove-task";
     }
 
-    @RequestMapping(value = "add-task", method = RequestMethod.POST)
-    public String processAddTaskForm(Model model) {
-        return "redirect:/category/daily-task";
+    @RequestMapping(value = "remove-task/{taskId}", method = RequestMethod.POST)
+    public String processDeleteTask(@PathVariable int taskId) {
+
+        messageDao.delete(taskId);
+
+        return "redirect:/category/remove-task";
     }
 }
