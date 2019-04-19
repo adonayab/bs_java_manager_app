@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head"></head>
+
+<body>
+
+<header th:replace="fragments :: header"></header>
+<div th:replace="fragments :: notification-tabs"></div>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col s12 m4 l4">
+      <div>
+        <table>
+          <tr>
+            <th class="red lighten-4">Mornings</th>
+            <td class="red lighten-4"></td>
+          </tr>
+          <div class="table" th:each="task : ${dailyTasks}">
+            <tr th:if="${ #strings.containsIgnoreCase(task.shift,'morning') }">
+              <td th:text="${task.body}"></td>
+              <td>
+                <form method="post" th:action="@{'/category/remove-task/' + ${task.id}}">
+                  <input type="submit" class="btn-remove btn-floating btn-small red lighten-1 white-text" value="-"/>
+                </form>
+              </td>
+            </tr>
+          </div>
+        </table>
+      </div>
+    </div>
+
+    <div class="col s12 m4 l4">
+      <table>
+        <tr>
+          <th class="deep-purple lighten-4">Afternoons</th>
+          <th class="deep-purple lighten-4"></th>
+        </tr>
+        <div class="table" th:each="task : ${dailyTasks}">
+          <tr th:if="${ #strings.containsIgnoreCase(task.shift,'afternoon') }">
+            <td th:text="${task.body}"></td>
+            <td>
+              <form method="post" th:action="@{'/category/remove-task/' + ${task.id}}">
+                <input type="submit" class="btn-floating btn-small red lighten-1 white-text" value="-"/>
+              </form>
+            </td>
+          </tr>
+        </div>
+      </table>
+    </div>
+
+    <div class="col s12 m4 l4">
+      <table>
+        <tr>
+          <th class="grey lighten-2">Evenings</th>
+          <th class="grey lighten-2"></th>
+        </tr>
+        <div class="table" th:each="task : ${dailyTasks}">
+          <tr th:if="${ #strings.containsIgnoreCase(task.shift,'evening') }">
+            <td th:text="${task.body}"></td>
+            <td>
+              <form method="post" th:action="@{'/category/remove-task/' + ${task.id}}">
+                <input type="submit" class="btn-floating btn-small red lighten-1 white-text" value="-"/>
+              </form>
+            </td>
+          </tr>
+        </div>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<div th:replace="fragments :: scripts"></div>
+
+
+</body>
+
+</html>
