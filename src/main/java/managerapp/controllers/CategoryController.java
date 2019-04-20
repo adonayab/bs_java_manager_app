@@ -35,25 +35,30 @@ public class CategoryController {
 
         int urgentId = 0;
         int generalId = 0;
-        int dailyTasksId = 0;
+        boolean newUrgent = false;
+        boolean newGeneral = false;
         Iterable<Category> cats = categoryDao.findAll();
         for (Category cat : cats) {
             if (cat.getName().equals("Urgent")) {
                 urgentId = cat.getId();
+                for (Message message: categoryDao.findOne(urgentId).getMessages()) {
+                    if (!message.isMarkDone()) newUrgent = true;
+                }
             }
             if (cat.getName().equals("General")) {
                 generalId = cat.getId();
-            }
-            if (cat.getName().equals("Daily Tasks")) {
-                dailyTasksId = cat.getId();
+                for (Message message: categoryDao.findOne(generalId).getMessages()) {
+                    if (!message.isMarkDone()) newGeneral = true;
+                }
             }
         }
         model.addAttribute("urgentId", urgentId);
         model.addAttribute("generalId", generalId);
-        model.addAttribute("dailyTasksId", dailyTasksId);
+        model.addAttribute("newUrgent", newUrgent);
+        model.addAttribute("newGeneral", newGeneral);
+
 
         Category category = categoryDao.findOne(id);
-
         Iterable<Message> messages = category.getMessages();
         ArrayList<Message> notCompleted = new ArrayList<>();
         for (Message message : messages) {
@@ -86,16 +91,25 @@ public class CategoryController {
 
     @RequestMapping(value = "daily-task", method = RequestMethod.GET)
     public String displayDailyTask(Model model) {
+
         int urgentId = 0;
         int generalId = 0;
         int dailyTasksId = 0;
+        boolean newUrgent = false;
+        boolean newGeneral = false;
         Iterable<Category> cats = categoryDao.findAll();
         for (Category cat : cats) {
             if (cat.getName().equals("Urgent")) {
                 urgentId = cat.getId();
+                for (Message message: categoryDao.findOne(urgentId).getMessages()) {
+                    if (!message.isMarkDone()) newUrgent = true;
+                }
             }
             if (cat.getName().equals("General")) {
                 generalId = cat.getId();
+                for (Message message: categoryDao.findOne(generalId).getMessages()) {
+                    if (!message.isMarkDone()) newGeneral = true;
+                }
             }
             if (cat.getName().equals("Daily Tasks")) {
                 dailyTasksId = cat.getId();
@@ -103,7 +117,8 @@ public class CategoryController {
         }
         model.addAttribute("urgentId", urgentId);
         model.addAttribute("generalId", generalId);
-        model.addAttribute("dailyTasksId", dailyTasksId);
+        model.addAttribute("newUrgent", newUrgent);
+        model.addAttribute("newGeneral", newGeneral);
 
         Iterable<Message> dailyTasks = categoryDao.findOne(dailyTasksId).getMessages();
         model.addAttribute("dailyTasks", dailyTasks);
@@ -116,13 +131,21 @@ public class CategoryController {
         int urgentId = 0;
         int generalId = 0;
         int dailyTasksId = 0;
+        boolean newUrgent = false;
+        boolean newGeneral = false;
         Iterable<Category> cats = categoryDao.findAll();
         for (Category cat : cats) {
             if (cat.getName().equals("Urgent")) {
                 urgentId = cat.getId();
+                for (Message message: categoryDao.findOne(urgentId).getMessages()) {
+                    if (!message.isMarkDone()) newUrgent = true;
+                }
             }
             if (cat.getName().equals("General")) {
                 generalId = cat.getId();
+                for (Message message: categoryDao.findOne(generalId).getMessages()) {
+                    if (!message.isMarkDone()) newGeneral = true;
+                }
             }
             if (cat.getName().equals("Daily Tasks")) {
                 dailyTasksId = cat.getId();
@@ -130,7 +153,8 @@ public class CategoryController {
         }
         model.addAttribute("urgentId", urgentId);
         model.addAttribute("generalId", generalId);
-        model.addAttribute("dailyTasksId", dailyTasksId);
+        model.addAttribute("newUrgent", newUrgent);
+        model.addAttribute("newGeneral", newGeneral);
 
         Iterable<Message> dailyTasks = categoryDao.findOne(dailyTasksId).getMessages();
         model.addAttribute("dailyTasks", dailyTasks);

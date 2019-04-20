@@ -43,10 +43,14 @@
         <div class="col s12">
           <ul class="tabs">
             <li class="tab ">
-              <a class="deep-orange lighten-2 black-text"  th:href="@{'/category/index/' + ${urgentId}}">Urgent</a>
+              <a class="deep-orange lighten-2 black-text"  th:href="@{'/category/index/' + ${urgentId}}">Urgent
+                <span class="badge btn yellow lighten-3 red-text" th:if="${newUrgent}">NEW</span>
+              </a>
             </li>
             <li class="tab ">
-              <a class="teal lighten-4 lighten-4 black-text" th:href="@{'/category/index/' + ${generalId}}">General</a>
+              <a class="teal lighten-4 lighten-4 black-text" th:href="@{'/category/index/' + ${generalId}}">General
+                <span class="badge btn yellow lighten-3 red-text" th:if="${newGeneral}">New</span>
+              </a>
             </li>
             <li class="tab ">
               <a  class="light-green lighten-2 black-text" th:href="@{/message/completed}">Completed</a>

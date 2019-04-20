@@ -5,11 +5,9 @@
 <body>
 
   <header th:replace="fragments :: header"></header>
-
   <div th:replace="fragments :: notification-tabs"></div>
-
+  <div th:replace="fragments :: add-btn"></div>
   <div th:if="${messages}">
-    <div th:replace="fragments :: add-btn"></div>
     <div th:replace="fragments :: message"></div>
   </div>
 

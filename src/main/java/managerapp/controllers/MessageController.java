@@ -30,56 +30,64 @@ public class MessageController {
     @RequestMapping(value = "")
     public String index(Model model) {
 
+        int urgentId = 0;
+        int generalId = 0;
+        boolean newUrgent = false;
+        boolean newGeneral = false;
         Iterable<Message> messages = messageDao.findAll();
         ArrayList<Message> notCompleted = new ArrayList<>();
         for (Message message: messages) {
             if (!message.isMarkDone()) {
                 if (! message.getCategory().getName().equals("Daily Tasks")) {
                     notCompleted.add(message);
+                    if (message.getCategory().getName().equals("Urgent")) {
+                        urgentId = message.getCategory().getId();
+                        newUrgent = true;
+                    }
+                    if (message.getCategory().getName().equals("General")) {
+                        generalId = message.getCategory().getId();
+                        newGeneral = true;
+                    }
                 }
             }
         }
         model.addAttribute("messages", notCompleted);
-
-        int urgentId = 0;
-        int generalId = 0;
-        int dailyTasksId = 0;
-        Iterable<Category> cats = categoryDao.findAll();
-        for (Category cat: cats){
-            if (cat.getName().equals("Urgent")) { urgentId = cat.getId(); }
-            if (cat.getName().equals("General")) { generalId = cat.getId();}
-            if (cat.getName().equals("Daily Tasks")) { dailyTasksId = cat.getId();}
-        }
         model.addAttribute("urgentId", urgentId);
         model.addAttribute("generalId", generalId);
-        model.addAttribute("dailyTasksId", dailyTasksId);
+        model.addAttribute("newUrgent", newUrgent);
+        model.addAttribute("newGeneral", newGeneral);
         return "message/index";
     }
 
     @RequestMapping(value = "completed")
     public String completed(Model model) {
 
+        int urgentId = 0;
+        int generalId = 0;
+        boolean newUrgent = false;
+        boolean newGeneral = false;
         Iterable<Message> messages = messageDao.findAll();
         ArrayList<Message> completed = new ArrayList<>();
         for (Message message: messages) {
             if (message.isMarkDone()) {
                 completed.add(message);
+            } else {
+                if (message.getCategory().getName().equals("Urgent")) {
+                    urgentId = message.getCategory().getId();
+                    newUrgent = true;
+                }
+                if (message.getCategory().getName().equals("General")) {
+                    generalId = message.getCategory().getId();
+                    newGeneral = true;
+                }
             }
         }
         model.addAttribute("messages", completed);
-
-        int urgentId = 0;
-        int generalId = 0;
-        int dailyTasksId = 0;
-        Iterable<Category> cats = categoryDao.findAll();
-        for (Category cat: cats){
-            if (cat.getName().equals("Urgent")) { urgentId = cat.getId(); }
-            if (cat.getName().equals("General")) { generalId = cat.getId();}
-            if (cat.getName().equals("Daily Tasks")) { dailyTasksId = cat.getId();}
-        }
         model.addAttribute("urgentId", urgentId);
         model.addAttribute("generalId", generalId);
-        model.addAttribute("dailyTasksId", dailyTasksId);
+        model.addAttribute("newUrgent", newUrgent);
+        model.addAttribute("newGeneral", newGeneral);
+
         return "message/completed";
     }
 
