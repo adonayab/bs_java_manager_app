@@ -6,7 +6,7 @@
 <h1 th:text="${title}"></h1>
 <nav th:replace="fragments :: navigation"></nav>
 
-<form th:action="@{/user/add}" th:object="${user}" method="post" >
+<form th:action="@{/oldUser/add}" th:object="${oldUser}" method="post" >
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>User Name </label>

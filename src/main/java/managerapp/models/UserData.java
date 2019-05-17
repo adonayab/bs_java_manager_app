@@ -4,28 +4,28 @@ import java.util.ArrayList;
 
 public class UserData {
 
-    static ArrayList<User> users = new ArrayList<>();
+    static ArrayList<OldUser> oldUsers = new ArrayList<>();
 
     // getAll
 
-    public static ArrayList<User> getAll() {
-        return users;
+    public static ArrayList<OldUser> getAll() {
+        return oldUsers;
     }
 
     // add
-    public static void add(User newUser) {
-        users.add(newUser);
+    public static void add(OldUser newOldUser) {
+        oldUsers.add(newOldUser);
     }
 
     // getById
-    public static User getById(int id) {
-        User theUser = null;
-        for (User candidateUser: users) {
-            if (candidateUser.getUserId() == id) {
-                theUser = candidateUser;
+    public static OldUser getById(int id) {
+        OldUser theOldUser = null;
+        for (OldUser candidateOldUser : oldUsers) {
+            if (candidateOldUser.getUserId() == id) {
+                theOldUser = candidateOldUser;
             }
         }
-        return theUser;
+        return theOldUser;
     }
 }
 

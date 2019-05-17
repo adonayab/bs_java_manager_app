@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("message")
+@RequestMapping("/")
 public class MessageController {
 
     private static String[] shifts = {"All Shifts", "Morning", "Afternoon", "Evening" };
@@ -28,7 +28,9 @@ public class MessageController {
     private CategoryDao categoryDao;
 
     @RequestMapping(value = "")
-    public String index(Model model) {
+    public String index(Model model, Message newMessage) {
+
+        String mark = "Mark Complete";
 
         int urgentId = 0;
         int generalId = 0;
@@ -51,16 +53,23 @@ public class MessageController {
                 }
             }
         }
+
+        model.addAttribute("categories", categoryDao.findAll());
+        model.addAttribute("shifts", shifts);
+
         model.addAttribute("messages", notCompleted);
         model.addAttribute("urgentId", urgentId);
         model.addAttribute("generalId", generalId);
         model.addAttribute("newUrgent", newUrgent);
         model.addAttribute("newGeneral", newGeneral);
+        model.addAttribute("mark", mark);
         return "message/index";
     }
 
     @RequestMapping(value = "completed")
     public String completed(Model model) {
+
+        String unmark = "Mark Not Complete";
 
         int urgentId = 0;
         int generalId = 0;
@@ -87,6 +96,7 @@ public class MessageController {
         model.addAttribute("generalId", generalId);
         model.addAttribute("newUrgent", newUrgent);
         model.addAttribute("newGeneral", newGeneral);
+        model.addAttribute("unmark", unmark);
 
         return "message/completed";
     }
@@ -129,7 +139,7 @@ public class MessageController {
         Message message = messageDao.findOne(messageId);
         message.setMarkDone(true);
         messageDao.save(message);
-       return "redirect:/message";
+       return "redirect:/";
     }
 
     @RequestMapping(value = "restore/{messageId}", method = RequestMethod.POST)
@@ -138,13 +148,13 @@ public class MessageController {
         Message message = messageDao.findOne(messageId);
         message.setMarkDone(false);
         messageDao.save(message);
-        return "redirect:/message/completed";
+        return "redirect:/completed";
     }
 
     @RequestMapping(value = "delete/{messageId}", method = RequestMethod.POST)
     public String processDeleteMessage(@PathVariable int messageId) {
         messageDao.delete(messageId);
-        return "redirect:/message/completed";
+        return "redirect:/completed";
     }
 
     @RequestMapping(value = "edit/{messageId}", method = RequestMethod.GET)
@@ -182,7 +192,7 @@ public class MessageController {
 
         messageDao.save(workMessage);
 
-        return "redirect:/message";
+        return "redirect:/";
     }
 
 }

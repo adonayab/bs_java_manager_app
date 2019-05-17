@@ -1,7 +1,7 @@
 package managerapp.controllers;
 
 
-import managerapp.models.User;
+import managerapp.models.OldUser;
 import managerapp.models.UserData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,25 +18,25 @@ import java.util.ArrayList;
 public class UserController {
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String add(Model model, User user) {
+    public String add(Model model, OldUser oldUser) {
         model.addAttribute("title", "Sign Up");
-        return "user/add";
+        return "oldUser/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model, @Valid User user, BindingResult bindingResult) {
+    public String add(Model model, @Valid OldUser oldUser, BindingResult bindingResult) {
         model.addAttribute("title", "Sign Up");
 
 
         // TODO: Make email optional
 
         if (bindingResult.hasErrors()) {
-            return "/user/add";
+            return "/oldUser/add";
         }
 
-        UserData.add(user);
-        String name = user.getUserName();
-        return String.format("redirect:/user/index/%s", name);
+        UserData.add(oldUser);
+        String name = oldUser.getUserName();
+        return String.format("redirect:/oldUser/index/%s", name);
     }
 
     @RequestMapping(value = "index")

@@ -1,92 +1,116 @@
 package managerapp.models;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.Entity;
+//import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-public class User {
-
-    private int userId;
-
-    @NotNull
-    @NotEmpty(message = "User Name Required")
-    @Size(min=5, max=15, message = "User name must be between 5 and 15 characters")
-    private String userName;
-
-    @NotEmpty(message = "Password Required")
-    @Size(min=6, message = "Password must be at least 5 characters")
-    private String password;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
-    @Email(regexp = "^(.+)@(.+)$", message = "Invalid email adress")
+
+@Entity
+public class User extends AbstractEntity {
+
+    @NotBlank
     private String email;
 
-    @NotNull(message = "Passwords do not match")
-    private String verifyPassword;
+    @NotBlank
+    private String fullName;
 
-    private static int nextId = 1;
+    @NotBlank
+    private String password;
 
-    public User() {
-        userId = nextId;
-        nextId++;
-    }
+    @NotNull
+    private Boolean enabled = true;
 
-    public User(String userName, String password, String email) {
-        this();
-        this.userName = userName;
-        this.password = password;
+    public User() {}
+
+    public User(@NotBlank String email, @NotBlank String fullName, @NotBlank String password) {
+
+        if (email == null || email.length() == 0 || !isValidEmail(email))
+            throw new IllegalArgumentException("Email may not be blank");
+
+        if (fullName == null || fullName.length() == 0)
+            throw new IllegalArgumentException("fullName may not be blank");
+
+        if (password == null || password.length() == 0)
+            throw new IllegalArgumentException("Password may not be blank");
+
         this.email = email;
-    }
-
-    public int getUserId() { return userId; }
-
-//    public void setUserId(int userId) { this.userId = userId; }
-
-    public static int getNextId() {
-        return nextId;
-    }
-
-    public static void setNextId(int nextId) {
-        User.nextId = nextId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
+        this.fullName = fullName;
         this.password = password;
-        checkPassword();
     }
 
-    public String getVerifyPassword() {
-        return verifyPassword;
-    }
-
-    public void setVerifyPassword(String verifyPassword) {
-        this.verifyPassword = verifyPassword;
-        checkPassword();
+    public List<String> getRoles() {
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("ROLE_USER");
+        return roles;
     }
 
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
-        this.email = email;
+
+    public String getFullName() {
+        return fullName;
     }
 
-    private void checkPassword() {
-        if (!password.equals(verifyPassword) && verifyPassword != null) {
-            verifyPassword = null;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
         }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User user = (User) obj;
+        return email.equals(user.email);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                '}';
+    }
+
+    private static boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile("\\S+@\\S+");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 }

@@ -1,0 +1,101 @@
+.error {
+  color: red;
+  font-style: italic;
+}
+
+header + .container-fluid {
+  padding-top: -80px;
+  margin-top: 80px;
+}
+
+.bot-pad { padding-bottom: 45px; }
+.add-btn { padding-top: 10px; }
+
+body {
+  background: #fafafa;
+  color: #333232;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  padding: 20px;
+}
+
+.bg-black {
+  background-color: #1e3242;
+}
+
+h4, h2 {
+  color: #424242;
+  font-weight:  bold;
+}
+
+.user-name {
+  color: rgb(201, 171, 134);
+ }
+
+.title, .date  {
+  color: #07415c;
+}
+
+.title:hover {
+  color: #636868;
+}
+
+.footer {
+  color: rgb(153, 149, 149);
+}
+
+a {
+  color: rgb(184, 41, 127);
+}
+a:hover {
+  color: rgb(63, 101, 116);
+  text-decoration: none;
+}
+
+.card {
+  background: #faf9f9;
+  border-radius: 5px;
+}
+
+.card:hover {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.unset-form {
+  all: unset;
+}
+
+/* Notification tabs */
+.urgent {
+  background-color: #ff8a65;
+}
+.general{
+  background-color: #b2dfdb;
+}
+.completed{
+  background-color: #aed581;
+}
+.daily-task{
+  background-color: #bcaaa4;
+}
+
+.urgent-text, .general-text, .completed-text, .dailytask-text{
+  color: #000000;
+  font-size: 16px;
+}
+.urgent-text:hover, .general-text:hover, .completed-text:hover, .dailytask-text:hover {
+  color: #363434;
+}
+
+/* For table head rows */
+.th-m {
+  background-color: #fff176 ;
+}
+.th-a {
+  background-color: #AFC5FF;
+}
+.th-e {
+  background-color: #e0e0e0;
+}

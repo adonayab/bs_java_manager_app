@@ -4,33 +4,54 @@
   <meta charset="UTF-8"/>
   <title th:text="${title}">Manager App</title>
 
-  <link rel="stylesheet" th:href="@{/css/style.css}"/>
-<!--  <link rel="stylesheet" th:href="@{/css/materialize.css}"/>-->
+  <link rel="stylesheet" th:href="@{/css/style_BS.css}"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
 
 </head>
 
 <body>
 
 <!--Navbar-->
-  <header th:fragment="header">
-    <nav class="nav-wrapper black">
-      <div class="container">
-        <a href="" class="brand-logo">Manager App</a>
-        <a href="" class="sidenav-trigger" data-target="mobile-menu">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul class="right hide-on-med-and-down">
-          <li><a th:href="@{/message}">All Notification</a></li>
-          <li><a th:href="@{/category}">Schedule</a></li>
-          <li><a th:href="@{/menu}">Grill</a></li>
+  <header th:fragment="header" class="bot-pad">
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top">
+      <span class="navbar-brand">
+        <!-- <h2>M APP</h2> -->
+      </span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">All Notification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/category}">Schedule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/menu}">Grill</a>
+          </li>
         </ul>
-        <ul class="sidenav grey lighten-2" id="mobile-menu">
-          <li><a th:href="@{/message}">All Notification</a></li>
-          <li><a th:href="@{/category}">Schedule</a></li>
-          <li><a th:href="@{/menu}">Grill</a></li>
+        <ul class="navbar-nav navbar-right">
+<!--          <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">-->
+<!--            <form th:action="@{/logout}" method="post" name="logoutForm"></form>-->
+<!--            <a class="nav-link" href="#" onclick="document.logoutForm.submit()"><i class="fas fa-sign-out-alt"></i> Log Out</a>-->
+<!--          </li>-->
+          <li class="nav-item">
+            <a class="nav-link" href="@{/login}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="@{/register}">Register</a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -38,68 +59,84 @@
 
 <!--Tabs of the Notification section of the app-->
   <div th:fragment="notification-tabs">
-    <section class="container">
-      <div class="row">
-        <div class="col s12">
-          <ul class="tabs">
-            <li class="tab ">
-              <a class="deep-orange lighten-2 black-text"  th:href="@{'/category/index/' + ${urgentId}}">Urgent
-                <span class="badge btn yellow lighten-3 red-text" th:if="${newUrgent}">NEW</span>
-              </a>
-            </li>
-            <li class="tab ">
-              <a class="teal lighten-4 lighten-4 black-text" th:href="@{'/category/index/' + ${generalId}}">General
-                <span class="badge btn yellow lighten-3 red-text" th:if="${newGeneral}">New</span>
-              </a>
-            </li>
-            <li class="tab ">
-              <a  class="light-green lighten-2 black-text" th:href="@{/message/completed}">Completed</a>
-            </li>
-            <li class="tab ">
-              <a class="brown lighten-3 black-text" th:href="@{/category/daily-task}">Daily Tasks</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
-
-<!--Add button-->
-  <div th:fragment="add-btn">
-    <section class="container add-btn">
-      <div class="row">
-        <div class="col s12">
-          <a class="btn black white-text" th:href="@{/message/add}">
-            ADD<i class="material-icons right">note_add</i>
+    <div class="container-fluid">
+      <div class="row nav">
+        <div class="col-sm-12 col-md-3 urgent nav-item">
+          <a class="nav-link mb-2 mt-2 text-center urgent-text" th:href="@{'/category/index/' + ${urgentId}}">Urgent
+            <span class="badge ml-2 badge-pill badge-danger" th:if="${newUrgent}">NEW</span>
           </a>
         </div>
+        <div class="col-sm-12 col-md-3 general nav-item">
+          <a class="nav-link g mb-2 mt-2 text-center general-text" th:href="@{'/category/index/' + ${generalId}}">General
+            <span class="badge ml-2 badge-pill badge-danger" th:if="${newGeneral}">NEW</span>
+          </a>
+        </div>
+        <div class="col-sm-12 col-md-3 completed nav-item">
+          <a class="nav-link c mb-2 mt-2 text-center completed-text" th:href="@{/completed}">Completed</a>
+        </div>
+        <div class="col-sm-12 col-md-3 daily-task nav-item">
+          <a class="nav-link d mb-2 mt-2 text-center dailytask-text" th:href="@{/category/daily-task}">Daily Task</a>
+        </div>
       </div>
-    </section>
+    </div>
   </div>
+
+<!-- Leave a note button-->
+  <div th:fragment="add-btn" class="container-fluid add-btn">
+    <div class="row">
+      <div class="col-sm-12 col-md-3 mt-1 mb-3">
+        <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Leave a Note</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Error Messages-->
+  <div th:fragment="errorMessages" class="container-fluid">
+    <div th:if="${message != null}"
+         th:with="parts=${#strings.arraySplit(message, '|')}"
+         th:attr="class=${'alert alert-dismissible alert-' + parts[0]}"
+         role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <div th:text="${parts[1]}"></div>
+    </div>
+  </div>
+
 
 <!--Message box-->
   <div th:fragment="message">
-    <div class="container ">
+    <div class="container-fluid">
       <div class="row" th:each="message : ${messages}">
-        <div class="col s12 m12 l12">
-          <div class="card  grey lighten-4 hoverable">
-            <div class="card-content black-text">
-              <span>
-                <form method="post" th:action="@{'/message/remove/' + ${message.id}}">
-                  <input class="btn-small light-green lighten-2 black-text right" type="submit" value="Mark Completed" />
-                </form>
-              </span>
-              <span class="card-title  teal-text darken-3" th:text="${message.title}"></span>
-              <p class = "flow-text" th:text="${message.body}"></p>
+        <div class="col-sm-12 col-md-10 col-lg-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="" class="title" th:text="${message.title}"></a>
+                <span>
+                  <span th:if="${ mark }">
+                    <form class="unset-form" method="POST" th:action="@{'/remove/' + ${message.id}}">
+                      <button type="submit" class="btn btn-info btn-sm float-right ml-2">Mark Completed</button>
+                    </form>
+                  </span>
+                  <span th:if="${ unmark }">
+                    <form class="unset-form" method="POST" th:action="@{'/restore/' + ${message.id}}">
+                      <button type="submit" class="btn btn-info btn-sm float-right ml-2">Mark Not Completed</button>
+                    </form>
+                  </span>
+                </span>
+              </h4>
+              <p class="card-text text-truncate" th:text="${message.body}"></p>
             </div>
-            <div class="card-action">
-              <span>From | </span>
-              <a href="" class="orange-text accent-4-text" th:text="${message.author}"></a>
-              <span>To | </span>
-              <a href="" class="blue-text accent-4-text" th:text="${message.shift}"></a>
-              <a class="black-text" th:text="${message.dateUpdated}"></a>
-              <a href="" class="red-text" th:text="${message.category.name}"></a>
-              <a class="btn-small red lighten-2 white-text edit_msg" th:href="@{'/message/edit/' + ${message.id}}">Edit</a>
+            <div class="card-footer">
+              <small class="text-muted">
+                From | <a class="mr-2" href="" th:text="${message.author}"></a>
+                To | <a class="mr-2" href="" th:text="${message.shift}"></a>
+                <a class="mr-2 date" href="" th:text="${message.dateUpdated}"></a>
+                <a class="mr-2 text-uppercase font-weight-bold" href="" th:text="${message.category.name}"></a>
+                <i class="material-icons" style="vertical-align: middle;">done</i> |
+                <a class="float-right" th:href="@{'/edit/' + ${message.id}}">
+                  <i class="material-icons">settings</i>
+                </a>
+              </small>
             </div>
           </div>
         </div>
@@ -108,17 +145,116 @@
   </div>
 
 
+
+<!--Add Modal-->
+  <div th:fragment="add-modal">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addModalLabel">New Note</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form method="post" th:object="${message}" th:action="@{/add}">
+
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label>Name </label>
+                  <input class="form-control" th:field="*{author}"/>
+                  <span th:errors="*{author}" class="error"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label>Title </label>
+                  <input class="form-control" th:field="*{title}" />
+                  <span th:errors="*{title}" class="error"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label th:for="category">Category </label>
+                  <select name="categoryId" class="custom-select" >
+                    <option th:each="category : ${categories}"
+                            th:text="${category.name}"
+                            th:value="${category.id}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label th:for="shift">Shift </label>
+                  <select th:field="*{shift}" class="custom-select" >
+                    <option th:each="shift : ${shifts}"
+                            th:text="${shift}"
+                            th:value="${shift}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label>Message </label>
+                  <textarea class="form-control" rows="5" th:field="*{body}"></textarea>
+                  <span th:errors="*{body}" class="error"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-2">
+                  <input type="submit" value="Add" class="btn btn-dark" />
+                </div>
+                <div class="form-group col-2">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--Scripts-->
   <div th:fragment="scripts">
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<!--    <script type="text/javascript" th:href="@{/js/materialize.js}"></script>-->
-    <script>
-      $(document).ready(function(){
-        $('.sidenav').sidenav();
-      });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
   </div>
 
 

@@ -18,6 +18,8 @@ import java.util.ArrayList;
 @RequestMapping("category")
 public class CategoryController {
 
+    private static String[] shifts = {"All Shifts", "Morning", "Afternoon", "Evening" };
+
     @Autowired
     private CategoryDao categoryDao;
 
@@ -31,7 +33,9 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/index/{id}")
-    public String category(Model model, @PathVariable int id) {
+    public String category(Model model, @PathVariable int id, Message newMessage) {
+
+        String mark = "Mark Complete";
 
         int urgentId = 0;
         int generalId = 0;
@@ -57,7 +61,6 @@ public class CategoryController {
         model.addAttribute("newUrgent", newUrgent);
         model.addAttribute("newGeneral", newGeneral);
 
-
         Category category = categoryDao.findOne(id);
         Iterable<Message> messages = category.getMessages();
         ArrayList<Message> notCompleted = new ArrayList<>();
@@ -67,6 +70,10 @@ public class CategoryController {
             }
         }
         model.addAttribute("messages", notCompleted);
+        model.addAttribute("mark", mark);
+
+        model.addAttribute("categories", categoryDao.findAll());
+        model.addAttribute("shifts", shifts);
 
         return "category/index";
     }
